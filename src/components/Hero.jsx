@@ -1,6 +1,7 @@
 // src/components/Hero.jsx
 import { motion } from "framer-motion";
 import { CalendarDays, Phone, MessageCircle, ArrowRight } from "lucide-react";
+import fallbackImg from "../assets/images/MKF7.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 35 },
@@ -24,7 +25,7 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          poster="/luxury_salon_hero.png"
+          poster={fallbackImg}
           className="h-full w-full object-cover"
         />
         {/* Very light overlay just for text readability */}
