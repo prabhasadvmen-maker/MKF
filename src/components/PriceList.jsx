@@ -7,7 +7,7 @@ const categories = Object.keys(pricingData);
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 const PriceList = () => {
@@ -30,7 +30,7 @@ const PriceList = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             className="flex items-center justify-center gap-3 text-[11px] font-medium uppercase tracking-[0.42em] text-[#79562E] mb-4"
           >
@@ -42,7 +42,7 @@ const PriceList = () => {
           <motion.h2
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             className="font-cinzel text-4xl md:text-5xl lg:text-6xl font-semibold text-[var(--color-dark-brown)] mb-4"
           >
@@ -51,7 +51,7 @@ const PriceList = () => {
           <motion.p
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             className="text-[var(--color-dark-brown)]/80 text-lg md:text-xl font-light italic max-w-2xl mx-auto"
           >
@@ -66,13 +66,13 @@ const PriceList = () => {
               key={category}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
               variants={{
                 hidden: { opacity: 0, y: 40 },
                 visible: { 
                   opacity: 1, 
                   y: 0, 
-                  transition: { duration: 0.8, delay: index * 0.15 } 
+                  transition: { duration: 0.4, delay: index * 0.05 } 
                 }
               }}
               className="bg-[var(--color-primary)] rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-500 border border-[var(--color-gold)]/20 overflow-hidden flex flex-col"

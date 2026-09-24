@@ -91,7 +91,7 @@ const services = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 const Services = () => {
@@ -121,7 +121,7 @@ const Services = () => {
           <motion.h2
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             className="font-cinzel text-4xl md:text-5xl lg:text-6xl font-semibold text-[#8D6125]"
           >
@@ -136,13 +136,13 @@ const Services = () => {
               key={service.id}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.1 }}
               variants={{
                 hidden: { opacity: 0, y: 40 },
                 visible: { 
                   opacity: 1, 
                   y: 0, 
-                  transition: { duration: 0.8, delay: index * 0.15 } 
+                  transition: { duration: 0.4, delay: index * 0.05 } 
                 }
               }}
               className="group relative bg-[#F8F3EA] rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-[#B88932]/10 hover:-translate-y-2 overflow-hidden"

@@ -57,14 +57,27 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-[var(--color-primary)] shadow-md py-4' : 'bg-transparent py-6'
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled 
+            ? 'bg-[var(--color-primary)]/95 backdrop-blur-md shadow-sm border-b border-[var(--color-gold)]/20 py-3' 
+            : 'bg-transparent py-5'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+        <div className="container mx-auto px-5 md:px-8 flex justify-between items-center">
           {/* Logo */}
-          <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="flex items-center">
-            <img src="/MKF logo.jpeg" alt="MFK Studio" className="h-12 object-contain rounded-md" />
+          <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full border-2 border-[var(--color-gold)] scale-110 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500"></div>
+              <img src="/logo.jpeg" alt="MFK Studio" className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border border-[var(--color-gold)]/50 shadow-md relative z-10" />
+            </div>
+            <div className="flex flex-col">
+              <span className={`font-cinzel font-bold text-lg leading-none tracking-widest transition-colors duration-300 ${isScrolled ? 'text-[var(--color-dark-brown)]' : 'text-white'}`}>
+                MFK
+              </span>
+              <span className={`text-[9px] uppercase tracking-[0.3em] font-medium transition-colors duration-300 ${isScrolled ? 'text-[var(--color-gold)]' : 'text-white/80'}`}>
+                Studio
+              </span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -77,7 +90,9 @@ const Navbar = () => {
                 className={`text-sm font-medium tracking-wide transition-colors ${
                   activeSection === link.href.substring(1)
                     ? 'text-[var(--color-gold)] border-b border-[var(--color-gold)]'
-                    : 'text-[var(--color-dark-brown)] hover:text-[var(--color-gold)]'
+                    : isScrolled
+                      ? 'text-[var(--color-dark-brown)] hover:text-[var(--color-gold)]'
+                      : 'text-white hover:text-[var(--color-gold)]'
                 }`}
               >
                 {link.name}
@@ -93,7 +108,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[var(--color-dark-brown)] focus:outline-none"
+            className={`md:hidden focus:outline-none ${isScrolled ? 'text-[var(--color-dark-brown)]' : 'text-white'}`}
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu size={28} />
@@ -101,7 +116,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
+    {/* Mobile Menu Card */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -110,49 +125,61 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/40 z-[60] md:hidden"
+              className="fixed inset-0 bg-black/60 z-[95] md:hidden"
             />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-[var(--color-primary)] z-[70] p-6 shadow-2xl flex flex-col md:hidden"
-            >
-              <div className="flex justify-end mb-8">
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-[var(--color-dark-brown)] hover:text-[var(--color-gold)] transition-colors"
-                >
-                  <X size={28} />
-                </button>
-              </div>
-              <nav className="flex flex-col gap-6">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => scrollToSection(e, link.href)}
-                    className={`text-lg font-medium transition-colors ${
-                      activeSection === link.href.substring(1)
-                        ? 'text-[var(--color-gold)]'
-                        : 'text-[var(--color-dark-brown)]'
-                    }`}
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:hidden pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                className="w-full max-w-sm bg-[var(--color-primary)] rounded-3xl p-8 shadow-2xl flex flex-col border border-[var(--color-gold)]/20 pointer-events-auto"
+              >
+                {/* Top bar with Logo and Close */}
+                <div className="flex justify-between items-center mb-10">
+                  <img src="/logo.jpeg" alt="MFK Studio" className="h-12 w-12 rounded-full object-cover border border-[var(--color-gold)]/40 shadow-sm" />
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-[var(--color-dark-brown)] hover:text-[var(--color-gold)] transition-colors p-2 bg-black/5 rounded-full"
                   >
-                    {link.name}
-                  </a>
-                ))}
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    window.dispatchEvent(new Event('openBookingModal'));
-                  }}
-                  className="mt-6 text-center bg-[var(--color-gold)] text-white px-6 py-3 rounded font-medium"
-                >
-                  Book Appointment
-                </button>
-              </nav>
-            </motion.div>
+                    <X size={24} />
+                  </button>
+                </div>
+                
+                <nav className="flex flex-col gap-6">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      onClick={(e) => scrollToSection(e, link.href)}
+                      className={`text-lg font-serif tracking-widest transition-all duration-300 flex items-center gap-4 ${
+                        activeSection === link.href.substring(1)
+                          ? 'text-[var(--color-gold)] translate-x-2'
+                          : 'text-[var(--color-dark-brown)] hover:text-[var(--color-gold)] hover:translate-x-2'
+                      }`}
+                    >
+                      {activeSection === link.href.substring(1) && (
+                        <span className="w-6 h-px bg-[var(--color-gold)]" />
+                      )}
+                      {link.name.toUpperCase()}
+                    </a>
+                  ))}
+                </nav>
+
+                {/* Bottom Section */}
+                <div className="mt-8 border-t border-[var(--color-gold)]/20 pt-8">
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      window.dispatchEvent(new Event('openBookingModal'));
+                    }}
+                    className="w-full text-center bg-[var(--color-gold)] text-white hover:bg-[#a67b2c] px-6 py-4 rounded-xl font-medium tracking-widest uppercase text-sm transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    Book Appointment
+                  </button>
+                </div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
