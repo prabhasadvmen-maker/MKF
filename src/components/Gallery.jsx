@@ -59,26 +59,26 @@ const Gallery = () => {
           <div className="w-24 h-[1px] bg-[var(--color-gold)] mx-auto mt-6" />
         </div>
 
-        {/* Masonry Grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        {/* Grid Layout */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
           {media.map((item, index) => (
             <div
               key={index}
-              className="relative rounded-xl overflow-hidden group cursor-pointer break-inside-avoid"
+              className="relative rounded-xl overflow-hidden group cursor-pointer aspect-square bg-black/5"
               onClick={() => openLightbox(index)}
             >
               {item.type === 'image' ? (
                 <img
                   src={item.src}
                   alt={`MFK Studio Gallery ${index + 1}`}
-                  className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   loading="lazy"
                   decoding="async"
                 />
               ) : (
                 <video
                   src={item.src}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   muted
                   playsInline
                   preload="metadata"
@@ -87,16 +87,16 @@ const Gallery = () => {
 
               {/* Overlay */}
               <div className="absolute inset-0 bg-[var(--color-gold)]/0 group-hover:bg-[var(--color-gold)]/30 transition-colors duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <span className="bg-white/90 text-[var(--color-dark-brown)] px-5 py-2 rounded-full font-medium tracking-wider text-sm flex items-center gap-2 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
-                  {item.type === 'video' ? <Play size={15} /> : <Eye size={15} />}
-                  {item.type === 'video' ? 'PLAY' : 'VIEW'}
+                <span className="bg-white/95 text-[var(--color-dark-brown)] px-3 py-1.5 md:px-5 md:py-2 rounded-full font-medium tracking-wider text-[10px] md:text-sm flex items-center gap-1.5 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-400">
+                  {item.type === 'video' ? <Play size={12} className="md:w-[15px] md:h-[15px]" /> : <Eye size={12} className="md:w-[15px] md:h-[15px]" />}
+                  <span className="hidden sm:inline">{item.type === 'video' ? 'PLAY' : 'VIEW'}</span>
                 </span>
               </div>
 
               {/* Video badge */}
               {item.type === 'video' && (
-                <div className="absolute top-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                  <Play size={10} /> VIDEO
+                <div className="absolute top-2 right-2 bg-black/60 text-white text-[9px] md:text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                  <Play size={8} className="md:w-[10px] md:h-[10px]" /> VIDEO
                 </div>
               )}
             </div>
